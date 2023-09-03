@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Keyboard</title>
+    <style>
+        form {
+            height: 50vh;
+            width: 100vw;
+        }
+        * {
+            font-size: 16pt;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <form action="/recv" method="post">
+        <input type="text" name="recv" id="">
+        <input type="text" name="loop" id="" placeholder="enter number of times to loop" value=0>
+        <button type="submit">sub</button>
+    </form>
+</body>
+</html>

